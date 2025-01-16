@@ -29,6 +29,10 @@ import {
   Bell_Filled_Corner0_Rounded as BellFilled,
   Bell_Stroke2_Corner0_Rounded as Bell,
 } from '#/components/icons/Bell'
+import {
+  Bookmark_Filled as BookmarkFilled,
+  Bookmark_Stroke as Bookmark,
+} from '#/components/icons/Bookmark'
 import {BulletList_Stroke2_Corner0_Rounded as List} from '#/components/icons/BulletList'
 import {
   Hashtag_Filled_Corner0_Rounded as HashtagFilled,
@@ -134,6 +138,7 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
     isAtNotifications,
     isAtMyProfile,
     isAtMessages,
+    isAtBookmarks,
   } = useNavigationTabState()
   const {hasSession, currentAccount} = useSession()
 
@@ -259,6 +264,7 @@ let DrawerContent = ({}: React.PropsWithoutRef<{}>): React.ReactNode => {
             />
             <FeedsMenuItem isActive={isAtFeeds} onPress={onPressMyFeeds} />
             <ListsMenuItem onPress={onPressLists} />
+            <BookmarksMenuItem isActive={isAtBookmarks} onPress={() => {}} />
             <ProfileMenuItem
               isActive={isAtMyProfile}
               onPress={onPressProfile}
@@ -537,6 +543,33 @@ let SettingsMenuItem = ({onPress}: {onPress: () => void}): React.ReactNode => {
   )
 }
 SettingsMenuItem = React.memo(SettingsMenuItem)
+
+// Bookmarks Menu Item
+let BookmarksMenuItem = ({
+  isActive,
+  onPress,
+}: {
+  isActive: boolean
+  onPress: () => void
+}): React.ReactNode => {
+  const {_} = useLingui()
+  const t = useTheme()
+  return (
+    <MenuItem
+      icon={
+        isActive ? (
+          <BookmarkFilled style={[t.atoms.text]} width={iconWidth} />
+        ) : (
+          <Bookmark style={[t.atoms.text]} width={iconWidth} />
+        )
+      }
+      label={_(msg`Bookmarks`)}
+      bold={isActive}
+      onPress={onPress}
+    />
+  )
+}
+BookmarksMenuItem = React.memo(BookmarksMenuItem)
 
 function MenuItem({icon, label, count, bold, onPress}: MenuItemProps) {
   const t = useTheme()
