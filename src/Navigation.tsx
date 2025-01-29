@@ -669,6 +669,9 @@ const LINKING = {
       if (name === 'Messages') {
         return buildStateObject('MessagesTab', 'Messages', params)
       }
+      if (name === 'Bookmarks') {
+        return buildStateObject('BookmarksTab', 'Bookmarks', params)
+      }
       // if the path is something else, like a post, profile, or even settings, we need to initialize the home tab as pre-existing state otherwise the back button will not work
       return buildStateObject('HomeTab', name, params, [
         {
